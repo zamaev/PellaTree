@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  BrowserRouter as 
-  Router,
-  // Switch,
-  // Route,
-  Link,
-  // useRouteMatch,
-  // useParams
-} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 export default function Branch(props) {
@@ -31,7 +23,7 @@ export default function Branch(props) {
           dbBranch.branches.map(branch =>
             <li key={branch.id}>
               <Link onClick={props.onChangeBranche} id={branch.id} to={`${props.path}/${branch.id}`}>{branch.id}</Link>
-              </li>
+            </li>
           )
         }
       </ul>
