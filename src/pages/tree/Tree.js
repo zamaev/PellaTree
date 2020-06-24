@@ -15,10 +15,22 @@ export default function Tree() {
 
   return (
     <div className="Tree">
-      <h2>Tree</h2>
-      <ul>
-        {dbProjects.map(proj => <li key={proj.id}><Link to={`${match.url}/${proj.id}/${proj.branch}`}>{proj.title}</Link></li>)}
-      </ul>
+
+      <div className="container-lg">
+        <div className="list-group">
+          {
+            dbProjects.map(proj => {
+              return (
+                <Link to={`${match.url}/${proj.id}/${proj.branch}`} key={proj.id} className="list-group-item d-flex justify-content-between align-items-center my-proj">
+                  {proj.title}
+                  <span className="badge badge-primary">14</span>
+                </Link>
+              )
+            })
+          }
+        </div>
+      </div>
+
       <Switch>
         <Route path={`${match.path}/:projectId/:branchId`}>
           <Project path={match.path} />

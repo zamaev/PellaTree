@@ -33,9 +33,7 @@ export default function Project(props) {
       return (
         list.history.slice(0, list.history.length - 1).map((branch, i) => {
           return (
-            <li key={branch}>
-              <Link onClick={hundleChangeHistory} id={branch} to={branch}>{branch}</Link>
-            </li>
+            <Link key={branch} onClick={hundleChangeHistory} id={branch} to={branch} className="list-group-item">{branch}</Link>
           )
         })
       )
@@ -43,9 +41,12 @@ export default function Project(props) {
   }
 
   return (
-    <div className="Project">
+    <div className="Project container-lg">
       <h2>Project {projectId}</h2>
-      {getHistory()}
+      <div className="list-group list-group-flush branches branches-top mt-4">
+        {getHistory()}
+      </div>
+      
       <Branch onChangeBranche={hundleChangeBranche} path={path} projectId={projectId} branchId={branchId} />
     </div>
   )
