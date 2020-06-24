@@ -1,39 +1,20 @@
 import React from 'react'
-import { Switch, Route, Link, useRouteMatch } from "react-router-dom"
+import { Switch, Route, useRouteMatch } from "react-router-dom"
 
+import Projects from './Projects'
 import Project from './Project'
 
 export default function Tree() {
   let match = useRouteMatch();
 
-  // из базы достаются бранчи фиксированные
-  const dbProjects = [
-    { id: 1, title: 'project1', branch: '0.9308308838638693' },
-    { id: 2, title: 'project2', branch: '0.4348644683168645' },
-    { id: 3, title: 'project3', branch: '0.2561468498498468' }
-  ]
-
   return (
     <div className="Tree">
-
-      <div className="container-lg">
-        <div className="list-group">
-          {
-            dbProjects.map(proj => {
-              return (
-                <Link to={`${match.url}/${proj.id}/${proj.branch}`} key={proj.id} className="list-group-item d-flex justify-content-between align-items-center my-proj">
-                  {proj.title}
-                  <span className="badge badge-primary">14</span>
-                </Link>
-              )
-            })
-          }
-        </div>
-      </div>
-
       <Switch>
         <Route path={`${match.path}/:projectId/:branchId`}>
           <Project path={match.path} />
+        </Route>
+        <Route path={`${match.path}`}>
+          <Projects path={match.path} />
         </Route>
       </Switch>
     </div>

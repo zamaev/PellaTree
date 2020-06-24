@@ -18,7 +18,7 @@ export default function Branch(props) {
     <div className="Branch">
       <h3>{dbBranch.title}</h3>
       <p>{dbBranch.description}</p>
-      <div className="list-group list-group-flush branches branches-bottom mt-4">
+      <div className="list-group list-group-flush branches branches-bottom mt-5 ml-5">
         {
           dbBranch.branches.map(branch =>
               <Link className="list-group-item" onClick={props.onChangeBranche} id={branch.id} key={branch.id} to={`${props.path}/${branch.id}`}>{branch.id}</Link>
