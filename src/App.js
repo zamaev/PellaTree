@@ -10,19 +10,21 @@ export default function App() {
   return (
     <Router>
       <div className="App">
-        <NavBar />
-
         <Switch>
           <Route path="/notes">
+            <NavBar page="/notes" />
             <Notes />
           </Route>
           <Route path="/tree">
+            <NavBar page="/tree" />
             <Tree />
           </Route>
           <Route path="/archive">
+            <NavBar page="/archive" />
             <Archive />
           </Route>
           <Route path="/">
+            <NavBar page="/" />
             <Home />
           </Route>
         </Switch>
@@ -31,9 +33,9 @@ export default function App() {
   )
 }
 
-function NavBar() {
+function NavBar(props) {
   return (
-    <div className="container-fluid px-0 mt-5 mb-4">
+    <div onClick={hideNavbar} className="container-fluid px-0 mt-5 mb-4">
       <div className="row">
         <nav className="navbar fixed-top navbar-expand-sm navbar-light bg-light">
           <Link to="/" className="navbar-brand pt-0">
@@ -46,19 +48,19 @@ function NavBar() {
                 fill="black" />
             </svg>
           </Link>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        <button id="toggle-this" className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              <li className="nav-item">
+              <li className={props.page === '/notes' ? 'nav-item active' : 'nav-item'}>
                 <Link className="nav-link" to="/notes">Notes</Link>
               </li>
-              <li className="nav-item active">
+              <li className={props.page === '/tree' ? 'nav-item active' : 'nav-item'}>
                 <Link className="nav-link" to="/tree">Tree</Link>
               </li>
-              <li className="nav-item">
+              <li className={props.page === '/archive' ? 'nav-item active' : 'nav-item'}>
                 <Link className="nav-link" to="/archive">Archive</Link>
               </li>
             </ul>
@@ -67,4 +69,10 @@ function NavBar() {
       </div>
     </div>
   )
+}
+
+function hideNavbar() {
+  if (document.getElementById('navbarNav').classList.contains('show')) {
+    document.getElementById('toggle-this').click();
+  } 
 }

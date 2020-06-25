@@ -53,3 +53,14 @@ body {
   text-decoration: underline;
   color: black;
 }
+
+.spinner {
+  color: #D66F10;
+}
+
+.project-loader {
+  /* padding-left: 10px; */
+  background-position: right;
+  background-image: url(statics/project-loader.svg);
+  background-repeat: no-repeat;
+}
