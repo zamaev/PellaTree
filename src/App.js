@@ -9,7 +9,7 @@ import Archive from './pages/archive/Archive'
 export default function App() {
   return (
     <Router>
-      <div className="App">
+      <div onClick={hideNavbar} className="App">
         <Switch>
           <Route path="/notes">
             <NavBar page="/notes" />
@@ -35,7 +35,7 @@ export default function App() {
 
 function NavBar(props) {
   return (
-    <div onClick={hideNavbar} className="container-fluid px-0 mt-5 mb-4">
+    <div className="container-fluid px-0 mt-5 mb-4">
       <div className="row">
         <nav className="navbar fixed-top navbar-expand-sm navbar-light bg-light">
           <Link to="/" className="navbar-brand pt-0">
@@ -55,13 +55,13 @@ function NavBar(props) {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className={props.page === '/notes' ? 'nav-item active' : 'nav-item'}>
-                <Link className="nav-link" to="/notes">Notes</Link>
+                <Link className="nav-link" to="/notes">Заметки</Link>
               </li>
               <li className={props.page === '/tree' ? 'nav-item active' : 'nav-item'}>
-                <Link className="nav-link" to="/tree">Tree</Link>
+                <Link className="nav-link" to="/tree">Деревья</Link>
               </li>
               <li className={props.page === '/archive' ? 'nav-item active' : 'nav-item'}>
-                <Link className="nav-link" to="/archive">Archive</Link>
+                <Link className="nav-link" to="/archive">Архив</Link>
               </li>
             </ul>
           </div>

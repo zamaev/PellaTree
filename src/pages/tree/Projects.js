@@ -1,23 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useRouteMatch } from "react-router-dom"
-import { getDbProjects, setDbProjects } from '../../services/api.services'
+import { Link } from "react-router-dom"
+import { getDbProjects, setDbProject } from '../../services/api.services'
 
 export default function Projects() {
-  const match = useRouteMatch();
   const [projects, setProjects] = useState([])
-
-  function hundleAddProject(e) {
-    if (e.key === 'Enter' && e.target.value !== '') {
-      e.target.classList.add('project-loader')
-      setDbProjects(e.target.value).then(({ title, projId, branchId }) => {
-        const db = projects.slice()
-        projects[0].empty
-          ? setProjects([{ id: projId, title, branch: branchId }])
-          : setProjects([...db, { id: projId, title, branch: branchId }])
-      })
-
-    }
-  }
 
   useEffect(() => {
     getDbProjects().then(dbProjects => {
@@ -26,7 +12,22 @@ export default function Projects() {
   }, [])
 
 
+  function hundleAddProject(e) {
+    if (e.key === 'Enter' && e.target.value !== '') {
+      e.target.classList.add('project-loader')
+      setDbProject(e.target.value.trim()).then(({ title, projId, branchId }) => {
+        const db = projects.slice()
+        projects[0].empty
+          ? setProjects([{ id: projId, title, branch: branchId, countBranch: 1 }])
+          : setProjects([...db, { id: projId, title, branch: branchId, countBranch: 1 }])
+      })
+
+    }
+  }
+
+
   function renderProjectsList() {
+
     if (!projects.length) {
       return (
         <div className="d-flex justify-content-center">
@@ -36,32 +37,29 @@ export default function Projects() {
         </div>
       )
     }
-    if (projects[0].empty) {
-      return (
-        <div className="list-group">
-          <input onKeyPress={hundleAddProject} className="list-group-item d-flex justify-content-between align-items-center my-proj" placeholder="New project..." />
-        </div>
-      )
-    }
+
     return (
-      <div className="list-group">
+      <div className="list-group mb-3">
         {
-          projects.map(proj => {
-            return (
-              <Link to={`${match.url}/${proj.id}/${proj.branch}`} key={proj.id} className="list-group-item d-flex justify-content-between align-items-center my-proj">
-                {proj.title}
-                <span className="badge badge-primary">14</span>
-              </Link>
-            )
-          })
+          projects[0].empty
+            ? ''
+            : projects.map(proj => {
+              return (
+                <Link to={`tree/${proj.id}/${proj.branch}`} className="list-group-item d-flex justify-content-between align-items-center my-proj" key={proj.id}>
+                  {proj.title}
+                  <span className="badge badge-primary">{proj.countBranch}</span>
+                </Link>
+              )
+            })
         }
-        <input onKeyPress={hundleAddProject} className="list-group-item d-flex justify-content-between align-items-center my-proj" key={Math.random()} placeholder="New project..." />
+        <input onKeyPress={hundleAddProject} className="list-group-item d-flex justify-content-between align-items-center my-proj" key={Math.random()} placeholder="Добавить проект..." />
       </div>
     )
   }
 
   return (
     <div className="container-lg projects">
+      <h3>Деревья</h3>
       {renderProjectsList()}
     </div>
   )

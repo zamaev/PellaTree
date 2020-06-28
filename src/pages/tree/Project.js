@@ -36,11 +36,9 @@ export default function Project(props) {
 
   return (
     <div className="Project container-lg">
-      {/* <h2>Project {projectId}</h2> */}
       <div className="list-group list-group-flush branches branches-top mb-4 mt-4">
         {getHistory()}
       </div>
-
       <Branch onChangeBranche={hundleChangeBranche} path={path} projectId={projectId} branchId={branchId} />
     </div>
   )
